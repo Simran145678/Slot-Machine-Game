@@ -4,6 +4,11 @@
     let assets;
     let slotMachineBackground;
     let spinButton;
+    let bet1Button;
+    let bet10Button;
+    let bet100Button;
+    let betMaxButton;
+    let jackPotLabel;
     let manifest = [
         { id: "background", src: "../Assets/images/background.png" },
         { id: "banana", src: "../Assets/images/banana.gif" },
@@ -53,6 +58,26 @@
         stage.addChild(spinButton);
         spinButton.on("click", () => {
             console.log("SpinButton clicked");
+        });
+        bet1Button = new UIObjects.Button("bet1Button", Config.Screen.CENTER_X - 150, Config.Screen.CENTER_y + 145, true);
+        stage.addChild(bet1Button);
+        bet1Button.on("click", () => {
+            console.log("bet1Button clicked");
+        });
+        bet10Button = new UIObjects.Button("bet10Button", Config.Screen.CENTER_X - 83, Config.Screen.CENTER_y + 145, true);
+        stage.addChild(bet10Button);
+        bet10Button.on("click", () => {
+            console.log("bet10Button clicked");
+        });
+        bet100Button = new UIObjects.Button("bet100Button", Config.Screen.CENTER_X - 15, Config.Screen.CENTER_y + 145, true);
+        stage.addChild(bet100Button);
+        bet10Button.on("click", () => {
+            console.log("bet10Button clicked");
+        });
+        betMaxButton = new UIObjects.Button("betMaxButton", Config.Screen.CENTER_X + 57, Config.Screen.CENTER_y + 145, true);
+        stage.addChild(betMaxButton);
+        betMaxButton.on("click", () => {
+            console.log("betMAxButton clicked");
         });
     }
     window.addEventListener("load", Preload);
