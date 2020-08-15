@@ -1,12 +1,12 @@
 (function () {
     // Function scoped Variables
-    var stage;
-    var helloLabel;
-    var clickMeButton;
+    let stage;
+    let helloLabel;
+    let clickMeButton;
     // config and initialization
     function Start() {
         console.log("App Started...");
-        var canvas = document.getElementById("canvas");
+        let canvas = document.getElementById("canvas");
         stage = new createjs.Stage(canvas);
         createjs.Ticker.framerate = 60; // 60 FPS or 16.667 ms
         createjs.Ticker.on("tick", Update);
@@ -34,7 +34,7 @@
         clickMeButton.x = 320;
         clickMeButton.y = 340;
         stage.addChild(clickMeButton);
-        clickMeButton.on("click", function () {
+        clickMeButton.on("click", () => {
             if (helloLabel.text == "Adios, mundo cruel!") {
                 helloLabel.text = "Holla, Mundo!";
                 helloLabel.regX = helloLabel.getMeasuredWidth() * 0.5;
@@ -46,10 +46,10 @@
                 helloLabel.regY = helloLabel.getMeasuredHeight() * 0.5;
             }
         });
-        clickMeButton.on("mouseover", function () {
+        clickMeButton.on("mouseover", () => {
             clickMeButton.alpha = 0.7; // 70% opaque - 30% transparent
         });
-        clickMeButton.on("mouseout", function () {
+        clickMeButton.on("mouseout", () => {
             clickMeButton.alpha = 1.0; // 100% opaque - 0% transparent
         });
     }
