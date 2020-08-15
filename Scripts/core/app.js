@@ -3,6 +3,7 @@
     let stage;
     let assets;
     let slotMachineBackground;
+    let spinButton;
     let manifest = [
         { id: "background", src: "../Assets/images/background.png" },
         { id: "banana", src: "../Assets/images/banana.gif" },
@@ -46,8 +47,13 @@
     }
     // app logic goes here
     function Main() {
-        slotMachineBackground = new Core.GameObject("background", 360, 8, true);
+        slotMachineBackground = new Core.GameObject("background", Config.Screen.CENTER_X + 40, Config.Screen.CENTER_y - 240, true);
         stage.addChild(slotMachineBackground);
+        spinButton = new UIObjects.Button("spinButton", Config.Screen.CENTER_X + 125, Config.Screen.CENTER_y + 145, true);
+        stage.addChild(spinButton);
+        spinButton.on("click", () => {
+            console.log("SpinButton clicked");
+        });
     }
     window.addEventListener("load", Preload);
 })();
