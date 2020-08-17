@@ -8,6 +8,7 @@
     let bet10Button:UIObjects.Button;
     let bet100Button:UIObjects.Button;
     let betMaxButton:UIObjects.Button;
+    let resetButton:UIObjects.Button;
     let jackPotLabel:UIObjects.Label;
     let creditLabel:UIObjects.Label;
     let winningsLabel: UIObjects.Label;
@@ -16,6 +17,20 @@
     let middleReel:Core.GameObject;
     let rightReel:Core.GameObject;
     let betLine:Core.GameObject;
+
+    ///
+    let playerMoney = 1000;
+    let winnings = 0;
+    let jackpot = 5000;
+    let turn = 0;
+    let playerBet = 0;
+    let winNumber = 0;
+    let lossNumber = 0;
+    let spinResult;
+    let fruits = "";
+    let winRatio = 0;
+
+
    //symbol tallies
     let grapes = 0;
     let bananas = 0;
@@ -41,7 +56,9 @@
         {id:"grapes",src:"../Assets/images/grapes.gif"},
         {id:"orange",src:"../Assets/images/orange.gif"},
         {id:"seven",src:"../Assets/images/seven.gif"},
-        {id:"spinButton",src:"../Assets/images/spinButton.png"}
+        {id:"spinButton",src:"../Assets/images/spinButton.png"},
+        {id:"resetButton",src:"../Assets/images/resetButton.png"},
+        {id:"click",src:"../Assets/sounds/click.mp3"}
 
     ];
 
@@ -72,6 +89,7 @@
         Main();
     }
 
+  
     // called every frame
     function Update():void
     {
@@ -135,6 +153,113 @@
             return betLine;
         }
 
+        function resetFruitTally() {
+            grapes = 0;
+            bananas = 0;
+            oranges = 0;
+            cherries = 0;
+            bars = 0;
+            bells = 0;
+            sevens = 0;
+            blanks = 0;
+        }
+
+        /* Check to see if the player won the jackpot */
+        function checkJackPot() {
+            /* compare two random values */
+            let jackPotTry = Math.floor(Math.random() * 51 + 1);
+            let jackPotWin = Math.floor(Math.random() * 51 + 1);
+            if (jackPotTry == jackPotWin) {
+                alert("You Won the $" + jackpot + " Jackpot!!");
+                playerMoney += jackpot;
+                jackpot = 1000;
+            }
+        }
+
+        function showWinMessage() {
+            playerMoney += winnings;
+            $("div#winOrLose>p").text("You Won: $" + winnings);
+            resetFruitTally();
+            checkJackPot();
+        }
+        
+        /* Utility function to show a loss message and reduce player money */
+        function showLossMessage() {
+            playerMoney -= playerBet;
+            $("div#winOrLose>p").text("You Lost!");
+            resetFruitTally();
+        }
+
+        function determineWinnings()
+        {
+            if (blanks == 0)
+            {
+                if (grapes == 3) {
+                    winnings = playerBet * 10;
+                }
+                else if(bananas == 3) {
+                    winnings = playerBet * 20;
+                }
+                else if (oranges == 3) {
+                    winnings = playerBet * 30;
+                }
+                else if (cherries == 3) {
+                    winnings = playerBet * 40;
+                }
+                else if (bars == 3) {
+                    winnings = playerBet * 50;
+                }
+                else if (bells == 3) {
+                    winnings = playerBet * 75;
+                }
+                else if (sevens == 3) {
+                    winnings = playerBet * 100;
+                }
+                else if (grapes == 2) {
+                    winnings = playerBet * 2;
+                }
+                else if (bananas == 2) {
+                    winnings = playerBet * 2;
+                }
+                else if (oranges == 2) {
+                    winnings = playerBet * 3;
+                }
+                else if (cherries == 2) {
+                    winnings = playerBet * 4;
+                }
+                else if (bars == 2) {
+                    winnings = playerBet * 5;
+                }
+                else if (bells == 2) {
+                    winnings = playerBet * 10;
+                }
+                else if (sevens == 2) {
+                    winnings = playerBet * 20;
+                }
+                else if (sevens == 1) {
+                    winnings = playerBet * 5;
+                }
+                else {
+                    winnings = playerBet * 1;
+                }
+                winNumber++;
+                showWinMessage();
+            }
+            else
+            {
+                lossNumber++;
+                showLossMessage();
+            }
+            
+        }
+
+        /* Utility function to show a win message and increase player money */
+
+
+        function CheckPlayable()
+        {
+
+        }
 
         //Game interface
         function buildinterface():void
@@ -159,9 +284,14 @@
         betMaxButton= new UIObjects.Button("betMaxButton",Config.Screen.CENTER_X+57,Config.Screen.CENTER_y+145,true);
         stage.addChild(betMaxButton);
 
+        resetButton=new UIObjects.Button("resetButton",Config.Screen.CENTER_X+200,Config.Screen.CENTER_y-30,true);
+        stage.addChild(resetButton);
+
+      
+
 
         //labels
-        jackPotLabel= new UIObjects.Label("9999999","20px","consolas","#FF0000",Config.Screen.CENTER_X-40,58,true);
+        jackPotLabel= new UIObjects.Label("5000","20px","consolas","#FF0000",Config.Screen.CENTER_X-30,58,true);
         stage.addChild(jackPotLabel);
 
         creditLabel= new UIObjects.Label("9999999","20px","consolas","#FF0000",Config.Screen.CENTER_X-140,340,true);
@@ -194,8 +324,9 @@
         {
             //Buttons logic
         
-        spinButton.on("click",()=>{
+            spinButton.on("click",()=>{
             console.log("SpinButton clicked");
+            createjs.Sound.play("click");
 
             //Reels test
             let reels=Reels();
@@ -207,23 +338,57 @@
         });
       
 
+        resetButton.on("click",()=>{
+            console.log("resetButton clicked");
+            createjs.Sound.play("click");
+            betLabel.text="0";
+            jackPotLabel.text="5000";
+            creditLabel.text="1000";
+            winningsLabel.text="0";       
+            
+             grapes = 0;
+             bananas = 0;
+             oranges = 0;
+             cherries = 0;
+             bars = 0;
+             bells = 0;
+             sevens = 0;
+             blanks = 0;
+        });
+
+
+
         bet1Button.on("click",()=>{
             console.log("bet1Button clicked");
+            createjs.Sound.play("click");         
+            betLabel.text="1";
+            playerBet=1;
+            CheckPlayable();
         });
 
 
         bet10Button.on("click",()=>{
             console.log("bet10Button clicked");
+            createjs.Sound.play("click");
+            betLabel.text="10";
+            playerBet=10;
+            CheckPlayable();
         });
 
         
-        bet10Button.on("click",()=>{
+        bet100Button.on("click",()=>{
             console.log("bet10Button clicked");
+            createjs.Sound.play("click");
+            betLabel.text="100";
+            playerBet=100;
+            CheckPlayable();
         });
 
        
         betMaxButton.on("click",()=>{
-            console.log("betMAxButton clicked");
+            console.log("betMaxButton clicked");
+            createjs.Sound.play("click");
+            betLabel.text="999";
         });
 
         }

@@ -15,7 +15,7 @@ module UIObjects
         
 
             //mouse events
-       this.on("mouseover", this.m_mouseOver);
+        this.on("mouseover", this.m_mouseOver);
 
         this.on("mouseout", this.m_mouseOut);
 
