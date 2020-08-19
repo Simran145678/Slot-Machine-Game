@@ -174,15 +174,15 @@
             let jackPotTry = Math.floor(Math.random() * 51 + 1);
             let jackPotWin = Math.floor(Math.random() * 51 + 1);
             if (jackPotTry == jackPotWin) {
-                alert("You Won the /n$" + jackpot + " Jackpot!!");
+                messageLabel.text="You Won the /n$" + jackpot + " Jackpot!!";
                 playerMoney += jackpot;
                 jackpot = 1000;
             }
         }
 
         function showWinMessage() {
-            playerMoney += winnings;
-            playerCredit=playerCredit+playerMoney;
+            playerMoney +=winnings;
+            playerCredit=playerCredit+winnings;
             messageLabel.text="You win \n$"+winnings+"";//NEWCHANGES
             winningsLabel.text=""+playerMoney+"";
             creditLabel.text=""+playerCredit+"";
@@ -268,6 +268,20 @@
 
         function CheckPlayable()
         {
+            if((playerCredit<playerBet) )
+            {
+                
+                messageLabel.text="low credit";
+                spinButton.mouseEnabled=false;
+                spinButton.alpha = 0.3;
+                console.log(playerCredit);
+            }
+           
+            else
+            {
+                spinButton.mouseEnabled=true;
+                spinButton.alpha = 1;
+            }
 
         }
 
@@ -343,7 +357,10 @@
         spinButton.on("click",()=>{
             console.log("SpinButton clicked");
             createjs.Sound.play("click");
-
+            determineWinnings();
+            CheckPlayable();
+            
+            
             //Reels test
             let reels=Reels();
 
@@ -351,7 +368,11 @@
             leftReel.image=assets.getResult(reels[0]) as HTMLImageElement;
             middleReel.image=assets.getResult(reels[1]) as HTMLImageElement;
             rightReel.image=assets.getResult(reels[2]) as HTMLImageElement;
-            determineWinnings();
+           
+            
+            
+            console.log(playerCredit);
+           
 
         });
       
@@ -364,6 +385,9 @@
             creditLabel.text="1000";
             winningsLabel.text="0";       
             
+             winNumber=0;
+             lossNumber=0;
+             playerCredit=1000;
              playerMoney=0;
              grapes = 0;
              bananas = 0;
@@ -413,11 +437,15 @@
             createjs.Sound.play("click");
             messageLabel.text="you bet \n   $999";//NEWCHANGES
             betLabel.text="999";
+            playerBet=999;
+            CheckPlayable();
+        
         });
 
 
         stopButton.on("click",()=>{
             console.log("stopButton clicked");
+            messageLabel.text="You stopped\n the game";
            
         });
 
