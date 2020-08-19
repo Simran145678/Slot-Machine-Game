@@ -47,24 +47,24 @@
     let blanks = 0;
 
     let manifest:Core.Item[]=[ 
-        {id:"background",src:"../Assets/images/background.png"},
-        {id:"banana",src:"../Assets/images/banana.gif"},
-        {id:"bar",src:"../Assets/images/bar.gif"},
-        {id:"bell",src:"../Assets/images/bell.gif"},
-        {id:"bet_line",src:"../Assets/images/bet_line.gif"},
-        {id:"bet1Button",src:"../Assets/images/bet1Button.png"},
-        {id:"bet10Button",src:"../Assets/images/bet10Button.png"},
-        {id:"bet100Button",src:"../Assets/images/bet100Button.png"},
-        {id:"betMaxButton",src:"../Assets/images/betMaxButton.png"},
-        {id:"blank",src:"../Assets/images/blank.gif"},
-        {id:"cherry",src:"../Assets/images/cherry.gif"},
-        {id:"grapes",src:"../Assets/images/grapes.gif"},
-        {id:"orange",src:"../Assets/images/orange.gif"},
-        {id:"seven",src:"../Assets/images/seven.gif"},
-        {id:"spinButton",src:"../Assets/images/spinButton.png"},
-        {id:"resetButton",src:"../Assets/images/resetButton.png"},
-        {id:"click",src:"../Assets/sounds/click.mp3"},
-        {id:"stopButton",src:"../Assets/images/Stop.png"}
+        {id:"background",src:"./Assets/images/background.png"},
+        {id:"banana",src:"./Assets/images/banana.gif"},
+        {id:"bar",src:"./Assets/images/bar.gif"},
+        {id:"bell",src:"./Assets/images/bell.gif"},
+        {id:"bet_line",src:"./Assets/images/bet_line.gif"},
+        {id:"bet1Button",src:"./Assets/images/bet1Button.png"},
+        {id:"bet10Button",src:"./Assets/images/bet10Button.png"},
+        {id:"bet100Button",src:"./Assets/images/bet100Button.png"},
+        {id:"betMaxButton",src:"./Assets/images/betMaxButton.png"},
+        {id:"blank",src:"./Assets/images/blank.gif"},
+        {id:"cherry",src:"./Assets/images/cherry.gif"},
+        {id:"grapes",src:"./Assets/images/grapes.gif"},
+        {id:"orange",src:"./Assets/images/orange.gif"},
+        {id:"seven",src:"./Assets/images/seven.gif"},
+        {id:"spinButton",src:"./Assets/images/spinButton.png"},
+        {id:"resetButton",src:"./Assets/images/resetButton.png"},
+        {id:"click",src:"./Assets/sounds/click.mp3"},
+        {id:"stopButton",src:"./Assets/images/Stop.png"}
 
     ];
 
