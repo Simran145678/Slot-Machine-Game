@@ -9,7 +9,7 @@
     let bet100Button:UIObjects.Button;
     let betMaxButton:UIObjects.Button;
     let resetButton:UIObjects.Button;
-    let stopButton:UIObjects.Button;
+    let quitButton:UIObjects.Button;
     let jackPotLabel:UIObjects.Label;
     let creditLabel:UIObjects.Label;
     let winningsLabel: UIObjects.Label;
@@ -316,8 +316,8 @@
         resetButton=new UIObjects.Button("resetButton",Config.Screen.CENTER_X+200,Config.Screen.CENTER_y-30,true);
         stage.addChild(resetButton);
 
-        stopButton=new UIObjects.Button("stopButton",Config.Screen.CENTER_X-250,Config.Screen.CENTER_y-35,true);
-        stage.addChild(stopButton);
+        quitButton=new UIObjects.Button("stopButton",Config.Screen.CENTER_X-250,Config.Screen.CENTER_y-35,true);
+        stage.addChild(quitButton);
 
       
 
@@ -458,9 +458,9 @@
         });
 
 
-        stopButton.on("click",()=>{
+        quitButton.on("click",()=>{
             console.log("stopButton clicked");
-            messageLabel.text="You stopped\n the game";
+            messageLabel.text="You quit\n the game";
             winNumber=0;
             lossNumber=0;
             playerCredit=0;
