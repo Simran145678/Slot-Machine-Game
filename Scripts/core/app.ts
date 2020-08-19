@@ -276,6 +276,11 @@
                 spinButton.alpha = 0.3;
                 console.log(playerCredit);
             }
+            else if(playerBet==0)
+            {
+                messageLabel.text="Enter bet\n amount";
+                spinButton.mouseEnabled=false;
+            }
            
             else
             {
@@ -384,7 +389,17 @@
             jackPotLabel.text="5000";
             creditLabel.text="1000";
             winningsLabel.text="0";       
-            
+            spinButton.mouseEnabled=true;
+            spinButton.alpha=1;
+            bet1Button.mouseEnabled=true;
+            bet1Button.alpha = 1;
+            bet10Button.mouseEnabled=true;
+            bet10Button.alpha = 1;
+            bet100Button.mouseEnabled=true;
+            bet100Button.alpha = 1;
+            betMaxButton.mouseEnabled=true;
+            betMaxButton.alpha = 1;
+             playerBet=0;
              winNumber=0;
              lossNumber=0;
              playerCredit=1000;
@@ -446,6 +461,32 @@
         stopButton.on("click",()=>{
             console.log("stopButton clicked");
             messageLabel.text="You stopped\n the game";
+            winNumber=0;
+            lossNumber=0;
+            playerCredit=0;
+            playerMoney=0;
+            grapes = 0;
+            bananas = 0;
+            oranges = 0;
+            cherries = 0;
+            bars = 0;
+            bells = 0;
+            sevens = 0;
+            blanks = 0;
+            creditLabel.text="  ";
+            winningsLabel.text="";
+            betLabel.text="";
+            spinButton.mouseEnabled=false;
+            spinButton.alpha=0.3;
+            bet1Button.mouseEnabled=false;
+            bet1Button.alpha = 0.3;
+            bet10Button.mouseEnabled=false;
+            bet10Button.alpha = 0.3;
+            bet100Button.mouseEnabled=false;
+            bet100Button.alpha = 0.3;
+            betMaxButton.mouseEnabled=false;
+            betMaxButton.alpha = 0.3;
+            
            
         });
 
