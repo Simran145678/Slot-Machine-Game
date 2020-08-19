@@ -1,3 +1,5 @@
+//HARSIMRAN_KAUR__301088749
+
 (function(){
     // Function scoped Variables
     let stage: createjs.Stage;
@@ -25,13 +27,13 @@
     let playerCredit=1000;
     let winnings = 0;
     let jackpot = 5000;
-    let turn = 0;
+    //let turn = 0;
     let playerBet = 0;
-    let winNumber = 0;
-    let lossNumber = 0;
-    let spinResult;
-    let fruits = "";
-    let winRatio = 0;
+     let winNumber = 0;
+     let lossNumber = 0;
+    //let spinResult;
+    //let fruits = "";
+    //let winRatio = 0;
 
 
    //symbol tallies
@@ -157,6 +159,7 @@
             return betLine;
         }
 
+        //reset all the fruittallies to 0
         function resetFruitTally() {
             grapes = 0;
             bananas = 0;
@@ -174,23 +177,28 @@
             let jackPotTry = Math.floor(Math.random() * 51 + 1);
             let jackPotWin = Math.floor(Math.random() * 51 + 1);
             if (jackPotTry == jackPotWin) {
+                //displays a message if its a jackpot
                 messageLabel.text="You Won the /n$" + jackpot + " Jackpot!!";
                 playerMoney += jackpot;
                 jackpot = 1000;
             }
         }
 
+        //outputs result if player wins the bet
+        //displays total credit and the total winnings
         function showWinMessage() {
             playerMoney +=winnings;
             playerCredit=playerCredit+winnings;
-            messageLabel.text="You win \n$"+winnings+"";//NEWCHANGES
+            messageLabel.text="You win \n$"+winnings+"";
             winningsLabel.text=""+playerMoney+"";
             creditLabel.text=""+playerCredit+"";
             resetFruitTally();
             checkJackPot();
         }
         
-        /* Utility function to show a loss message and reduce player money */
+        
+        //outputs result if player looses the bet
+        //displays total credit and the winnings left
         function showLossMessage() {
             playerMoney -= playerBet;
             playerCredit=playerCredit-playerBet;
@@ -200,6 +208,7 @@
             resetFruitTally();
         }
 
+        //function that specifies the criteria of winnnings
         function determineWinnings()
         {
             if (blanks == 0)
@@ -263,9 +272,9 @@
             
         }
 
-        /* Utility function to show a win message and increase player money */
+       
 
-
+        //Checks if the player is having sufficient credit and is eligible to play and bet
         function CheckPlayable()
         {
             if((playerCredit<playerBet) )
@@ -381,14 +390,17 @@
 
         });
       
-
+        //Starts the game from scratch with 1000 credits 
         resetButton.on("click",()=>{
             console.log("resetButton clicked");
-            createjs.Sound.play("click");
+          
+            createjs.Sound.play("click");  //sound function
             betLabel.text="0";
             jackPotLabel.text="5000";
             creditLabel.text="1000";
-            winningsLabel.text="0";       
+            winningsLabel.text="0";   
+            
+            //enables all mouseClicks
             spinButton.mouseEnabled=true;
             spinButton.alpha=1;
             bet1Button.mouseEnabled=true;
@@ -399,6 +411,7 @@
             bet100Button.alpha = 1;
             betMaxButton.mouseEnabled=true;
             betMaxButton.alpha = 1;
+            //reset all values
              playerBet=0;
              winNumber=0;
              lossNumber=0;
@@ -416,41 +429,43 @@
         });
 
 
-
+        //displays bet for $1, set playerBet=1 and outputs message on screen
         bet1Button.on("click",()=>{
             console.log("bet1Button clicked");
-            createjs.Sound.play("click");         
+            createjs.Sound.play("click"); //sound function        
             betLabel.text="1";
-            messageLabel.text="you bet \n   $1";//NEWCHANGES
+            messageLabel.text="you bet \n   $1";
             playerBet=1;
             CheckPlayable();
         });
 
 
+        //displays bet for $10, set playerBet=1 and outputs message on screen
         bet10Button.on("click",()=>{
             console.log("bet10Button clicked");
-            createjs.Sound.play("click");
+            createjs.Sound.play("click");//sound function
             betLabel.text="10";
-            messageLabel.text="you bet \n   $10";//NEWCHANGES
+            messageLabel.text="you bet \n   $10";
             playerBet=10;
             CheckPlayable();
         });
 
-        
+        //displays bet for $100, set playerBet=1 and outputs message on screen
         bet100Button.on("click",()=>{
             console.log("bet10Button clicked");
-            createjs.Sound.play("click");
+            createjs.Sound.play("click");//sound function
             betLabel.text="100";
-            messageLabel.text="you bet \n   $100";//NEWCHANGES
+            messageLabel.text="you bet \n   $100";
             playerBet=100;
             CheckPlayable();
         });
 
        
+        //displays bet for $999, set playerBet=1 and outputs message on screen
         betMaxButton.on("click",()=>{
             console.log("betMaxButton clicked");
-            createjs.Sound.play("click");
-            messageLabel.text="you bet \n   $999";//NEWCHANGES
+            createjs.Sound.play("click");//sound function
+            messageLabel.text="you bet \n   $999";
             betLabel.text="999";
             playerBet=999;
             CheckPlayable();
