@@ -9,17 +9,20 @@
     let bet100Button:UIObjects.Button;
     let betMaxButton:UIObjects.Button;
     let resetButton:UIObjects.Button;
+    let stopButton:UIObjects.Button;
     let jackPotLabel:UIObjects.Label;
     let creditLabel:UIObjects.Label;
     let winningsLabel: UIObjects.Label;
     let betLabel:UIObjects.Label;
+    let messageLabel:UIObjects.Label;
     let leftReel:Core.GameObject;
     let middleReel:Core.GameObject;
     let rightReel:Core.GameObject;
     let betLine:Core.GameObject;
 
     ///
-    let playerMoney = 1000;
+    let playerMoney = 0;
+    let playerCredit=1000;
     let winnings = 0;
     let jackpot = 5000;
     let turn = 0;
@@ -58,7 +61,8 @@
         {id:"seven",src:"../Assets/images/seven.gif"},
         {id:"spinButton",src:"../Assets/images/spinButton.png"},
         {id:"resetButton",src:"../Assets/images/resetButton.png"},
-        {id:"click",src:"../Assets/sounds/click.mp3"}
+        {id:"click",src:"../Assets/sounds/click.mp3"},
+        {id:"stopButton",src:"../Assets/images/Stop.png"}
 
     ];
 
@@ -110,10 +114,10 @@
         /* When this function is called it determines the betLine results.
         e.g. Bar - Orange - Banana */
         function Reels():string[] {
-            var betLine = [" ", " ", " "];
-            var outCome = [0, 0, 0];
+            let betLine = [" ", " ", " "];
+            let outCome = [0, 0, 0];
 
-            for (var spin = 0; spin < 3; spin++) {
+            for (let spin = 0; spin < 3; spin++) {
                 outCome[spin] = Math.floor((Math.random() * 65) + 1);
                 switch (outCome[spin]) {
                     case checkRange(outCome[spin], 1, 27):  // 41.5% probability
@@ -170,7 +174,7 @@
             let jackPotTry = Math.floor(Math.random() * 51 + 1);
             let jackPotWin = Math.floor(Math.random() * 51 + 1);
             if (jackPotTry == jackPotWin) {
-                alert("You Won the $" + jackpot + " Jackpot!!");
+                alert("You Won the /n$" + jackpot + " Jackpot!!");
                 playerMoney += jackpot;
                 jackpot = 1000;
             }
@@ -178,7 +182,10 @@
 
         function showWinMessage() {
             playerMoney += winnings;
-            $("div#winOrLose>p").text("You Won: $" + winnings);
+            playerCredit=playerCredit+playerMoney;
+            messageLabel.text="You win \n$"+winnings+"";//NEWCHANGES
+            winningsLabel.text=""+playerMoney+"";
+            creditLabel.text=""+playerCredit+"";
             resetFruitTally();
             checkJackPot();
         }
@@ -186,7 +193,10 @@
         /* Utility function to show a loss message and reduce player money */
         function showLossMessage() {
             playerMoney -= playerBet;
-            $("div#winOrLose>p").text("You Lost!");
+            playerCredit=playerCredit-playerBet;
+            creditLabel.text=""+playerCredit+"";
+            messageLabel.text="You lose \n$"+playerBet+"";//NEWCHANGES
+            winningsLabel.text=""+playerMoney+"";
             resetFruitTally();
         }
 
@@ -287,6 +297,9 @@
         resetButton=new UIObjects.Button("resetButton",Config.Screen.CENTER_X+200,Config.Screen.CENTER_y-30,true);
         stage.addChild(resetButton);
 
+        stopButton=new UIObjects.Button("stopButton",Config.Screen.CENTER_X-250,Config.Screen.CENTER_y-35,true);
+        stage.addChild(stopButton);
+
       
 
 
@@ -294,14 +307,17 @@
         jackPotLabel= new UIObjects.Label("5000","20px","consolas","#FF0000",Config.Screen.CENTER_X-30,58,true);
         stage.addChild(jackPotLabel);
 
-        creditLabel= new UIObjects.Label("9999999","20px","consolas","#FF0000",Config.Screen.CENTER_X-140,340,true);
+        creditLabel= new UIObjects.Label("1000","20px","consolas","#FF0000",Config.Screen.CENTER_X-140,340,true);
         stage.addChild(creditLabel);
 
-        betLabel= new UIObjects.Label("9999","20px","consolas","#FF0000",Config.Screen.CENTER_X-30,340,true);
+        betLabel= new UIObjects.Label("0000","20px","consolas","#FF0000",Config.Screen.CENTER_X-30,340,true);
         stage.addChild(betLabel);
 
-        winningsLabel= new UIObjects.Label("9999999","20px","consolas","#FF0000",Config.Screen.CENTER_X+50,340,true);
+        winningsLabel= new UIObjects.Label("0000","20px","consolas","#FF0000",Config.Screen.CENTER_X+50,340,true);
         stage.addChild(winningsLabel);
+
+        messageLabel= new UIObjects.Label("Hi there!","20px","consolas","#FF0000",Config.Screen.CENTER_X+180,Config.Screen.CENTER_y-200,true);
+        stage.addChild(messageLabel);
 
 
         //Reel Gameobjects
@@ -324,7 +340,7 @@
         {
             //Buttons logic
         
-            spinButton.on("click",()=>{
+        spinButton.on("click",()=>{
             console.log("SpinButton clicked");
             createjs.Sound.play("click");
 
@@ -335,6 +351,8 @@
             leftReel.image=assets.getResult(reels[0]) as HTMLImageElement;
             middleReel.image=assets.getResult(reels[1]) as HTMLImageElement;
             rightReel.image=assets.getResult(reels[2]) as HTMLImageElement;
+            determineWinnings();
+
         });
       
 
@@ -346,6 +364,7 @@
             creditLabel.text="1000";
             winningsLabel.text="0";       
             
+             playerMoney=0;
              grapes = 0;
              bananas = 0;
              oranges = 0;
@@ -354,6 +373,7 @@
              bells = 0;
              sevens = 0;
              blanks = 0;
+             messageLabel.text="New Game";
         });
 
 
@@ -362,6 +382,7 @@
             console.log("bet1Button clicked");
             createjs.Sound.play("click");         
             betLabel.text="1";
+            messageLabel.text="you bet \n   $1";//NEWCHANGES
             playerBet=1;
             CheckPlayable();
         });
@@ -371,6 +392,7 @@
             console.log("bet10Button clicked");
             createjs.Sound.play("click");
             betLabel.text="10";
+            messageLabel.text="you bet \n   $10";//NEWCHANGES
             playerBet=10;
             CheckPlayable();
         });
@@ -380,6 +402,7 @@
             console.log("bet10Button clicked");
             createjs.Sound.play("click");
             betLabel.text="100";
+            messageLabel.text="you bet \n   $100";//NEWCHANGES
             playerBet=100;
             CheckPlayable();
         });
@@ -388,8 +411,18 @@
         betMaxButton.on("click",()=>{
             console.log("betMaxButton clicked");
             createjs.Sound.play("click");
+            messageLabel.text="you bet \n   $999";//NEWCHANGES
             betLabel.text="999";
         });
+
+
+        stopButton.on("click",()=>{
+            console.log("stopButton clicked");
+           
+        });
+
+
+
 
         }
 
