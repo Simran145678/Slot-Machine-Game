@@ -20,3 +20,5 @@ Ensures a great user experience on both desktop and mobile devices.
 JavaScript: For dynamic and interactive elements of the game.
 TypeScript: For added type safety and enhanced code quality.
 HTML: For the structure of the web pages.
+
+![project-2](https://github.com/Simran145678/Slot-Machine-Game/assets/67065873/dca6413e-8cc1-42a8-a724-4797bdb428dd)
