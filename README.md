@@ -9,8 +9,10 @@ Users can spin the slot machine and enjoy a realistic gaming experience.
 
 **JavaScript and TypeScript**: 
 Utilized for robust and maintainable code, combining dynamic and static typing.
+
 **Animated Graphics**: 
 Smooth animations for spinning reels and winning effects.
+
 **Responsive Design**: 
 Ensures a great user experience on both desktop and mobile devices.
 
